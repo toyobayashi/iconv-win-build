@@ -20,11 +20,13 @@ cp ./include/iconv.h ../dist/emscripten/system/include
 
 emmake make clean
 
-./configure -q --host=x86_64-w64-mingw32  --prefix=/usr/local/msvc32 \
-            CC="cl.exe -nologo" \
-            CFLAGS="/MD /source-charset:utf-8" \
-            CXX="cl.exe -nologo" \
-            CXXFLAGS="/MD /source-charset:utf-8" \
+VCFLAGS="/nologo /GS /Gm- /WX- /Gd /W3 /O2 /MD /source-charset:utf-8 /Zc:wchar_t,inline,forScope /fp:precise /diagnostics:column"
+
+./configure -q --host=x86_64-w64-mingw32  --prefix=/usr/local/msvc64 \
+            CC="cl.exe" \
+            CFLAGS="$VCFLAGS" \
+            CXX="cl.exe" \
+            CXXFLAGS="$VCFLAGS" \
             CPPFLAGS="-D_WIN32_WINNT=_WIN32_WINNT_WIN7" \
             LDFLAGS="" \
             LD="link.exe" \
