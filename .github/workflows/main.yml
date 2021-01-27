@@ -1,0 +1,31 @@
+name: Build
+
+on: workflow_dispatch 
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt-get install -y --force-yes mingw-w64
+    - uses: mymindstorm/setup-emsdk@v7
+      with:
+        version: '2.0.12'
+        actions-cache-folder: 'emsdk-cache'
+
+    - name: Build
+      run: |
+        chmod +x ./build.sh
+        ./build.sh
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: libiconv
+        path: |
+          ./dist
+        if-no-files-found: ignore # 'warn' or 'ignore' are also available, defaults to `warn`
+        retention-days: 1
