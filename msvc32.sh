@@ -12,7 +12,7 @@ cd "libiconv-$iconvver"
 
 VCFLAGS="/nologo /GS /analyze- /Gm- /WX- /Gd /W3 /O2 /Oy- /MD /source-charset:utf-8 /Zc:wchar_t,inline,forScope /fp:precise /diagnostics:column"
 
-./configure -q --host=i686-w64-mingw32  --prefix=/usr/local/msvc32 \
+./configure --enable-extra-encodings --host=i686-w64-mingw32  --prefix=/usr/local/msvc32 \
             CC="cl.exe " \
             CFLAGS="$VCFLAGS" \
             CXX="cl.exe" \
@@ -31,5 +31,5 @@ cd lib
 make all
 cd ..
 
-mkdir -p ../dist/win32
-cp ./include/iconv.h ./lib/.libs/* ../dist/win32
+mkdir -p ../dist/msvc32
+cp ./include/iconv.h ./lib/.libs/* ../dist/msvc32
